@@ -3,35 +3,32 @@ import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom'
 import baseStyles from './base-styles'
-import '../../assets/styles/style.css'
 import PrivateRoute from '../private-route'
-import Header from '../layout/header'
-import Content from '../layout/styled-components/content'
-import Login from '../../containers/views/login/login'
-import Admin from '../../containers/views/admin/admin'
-import Home from '../../containers/views/home/home'
-import Post from '../../containers/views/post/post'
+import Header from '../../components/common/header'
+import Content from '../../components/common/content'
+import Login from '../../views/login'
+import Home from '../../views/home'
 
 const Root = ({store}) => {
-    baseStyles();
-    return (<Provider store={store}>
-        <Router>
-            <div>
-                <Header/>
-                <Content>
-                    <Switch>
-                        <Route exact path="/login" component={Login}/>
-                        <PrivateRoute path="/post" component={Post}/>
-                        <PrivateRoute path="/admin" component={Admin}/>
-                    </Switch>
-                </Content>
-            </div>
-        </Router>
+  baseStyles();
+  return (
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Header />
+          <Content>
+            <Switch>
+              <Route exact path="/" component={Login}/>
+              <PrivateRoute path="/sales" component={Home}/>
+            </Switch>
+          </Content>
+        </div>
+      </Router>
     </Provider>)
 };
 
 Root.propTypes = {
-    store: PropTypes.object.isRequired
+  store: PropTypes.object.isRequired
 };
 
 export default Root
