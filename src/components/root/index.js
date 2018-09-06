@@ -7,7 +7,7 @@ import PrivateRoute from '../private-route'
 import Header from '../../components/common/header'
 import Content from '../../components/common/content'
 import Login from '../../views/login'
-import Home from '../../views/home'
+import Sales from '../../views/sales'
 
 const Root = ({store}) => {
   baseStyles();
@@ -19,7 +19,7 @@ const Root = ({store}) => {
           <Content>
             <Switch>
               <Route exact path="/" component={Login}/>
-              <PrivateRoute path="/sales" component={Home}/>
+              <PrivateRoute path="/sales" component={Sales}/>
             </Switch>
           </Content>
         </div>

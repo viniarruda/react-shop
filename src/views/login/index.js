@@ -1,29 +1,18 @@
-import React from 'react'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router-dom'
-import {login} from "../../store/actions/authAction"
+import React, { Component } from "react";
+import { inject, observer } from "mobx-react";
+import { Redirect } from "react-router-dom";
 
-const Login = (props) => {
-    const {from} = props.location.state || {from: {pathname: "/sales"}};
-
-    if (props.auth.logged) {
-        return <Redirect to={from}/>;
+@inject("store")
+@observer
+export default class Login extends Component {
+    render() {
+        return (
+            <div className="page login">
+                Your login form here...
+                {this.props.store.authenticated &&
+                !this.props.store.authenticating &&
+                <Redirect to="/" />}
+            </div>
+        );
     }
-
-    return (
-        <div>
-            <h1>You need to be logged to see the route: {from.pathname}</h1>
-            <button onClick={props.login}>Log in</button>
-        </div>
-    );
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    login: () => dispatch(login({}))
-});
-
-const mapStateToProps = (state) => ({
-    auth: state.auth
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+}
