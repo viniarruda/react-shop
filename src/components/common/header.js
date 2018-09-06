@@ -1,29 +1,39 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {logout} from "../../store/actions/authAction"
-import NavBar from "./navbar"
-import NavLink from "./nav-link"
+import styled from 'styled-components'
+import { observer, inject } from 'mobx-react'
+import NavLink from './nav-link'
+
+const Navbar = styled.div`
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;    
+  background: #f8f9fa;
+  position: ${props => props.fixed ? 'fixed' : 'relative'};
+`;
+
+const Right = styled.div`
+  flex: 1;
+  text-align: right;
+`;
 
 const Header = (props) => {
-    return (
-        <NavBar title='React Shop' >
-            <NavLink to='/'>Home</NavLink>
-            {
-                props.auth.logged ?
-                    <NavLink to='/' onClick={props.logout}>Logout</NavLink>
-                    :
-                    <NavLink to='/login'>Login</NavLink>
-            }
-        </NavBar>
-    );
-};
+  return (
+    <Navbar>
+      <div>Title</div>
+      <NavLink to='/home'>Home</NavLink>
+      <Right>
+        {
+          props.auth.logged ?
+            <NavLink to='/' onClick={() => props.auth.logout()}>Logout</NavLink>
+            :
+            <NavLink to='/login'>Login</NavLink>
+        }
+      </Right>
+    </Navbar>
+  )
+}
 
-const mapDispatchToProps = (dispatch) => ({
-    logout: () => dispatch(logout())
-});
 
-const mapStateToProps = (state) => ({
-    auth: state.auth
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default inject("auth")(observer(Header));

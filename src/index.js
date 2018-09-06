@@ -1,15 +1,11 @@
-import React from 'react';
+import React from 'react'
+import Root from './routes'
 import { render } from 'react-dom'
-import { rehydrate, hotRehydrate } from "rfx-core";
-import { isProduction } from "../utils/constants";
-import Root from './routes/root'
-
-import registerServiceWorker from './registerServiceWorker'
-
-let store = rehydrate();
+// Service Worker for PWA
+import serviceWorkerRegister from './registerServiceWorker'
 
 render(
-    <Root store={isProduction ? store : hotRehydrate()} />,
-    document.getElementById('root')
+  <Root />,
+  document.getElementById('root')
 );
-registerServiceWorker();
+serviceWorkerRegister();
