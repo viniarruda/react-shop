@@ -22,9 +22,9 @@ class Home extends Component {
       <Fragment>
         <h1>{products.brand}</h1>
         {
-          products.items ? products.items.map(item => {
+          products.items ? products.items.map((item) =>
             <h2>item.itemId</h2>
-          }) : 'Loading...'
+          ) : 'Loading...'
         }
       </Fragment>
     )
