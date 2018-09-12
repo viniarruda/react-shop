@@ -1,16 +1,25 @@
-import { types } from 'mobx-state-tree';
+import { observable, action } from 'mobx'
 
-const AuthStore = types
-    .model('AuthStore', {
-        logged: types.boolean,
-    })
-    .actions(self => ({
-        login(logged) {
-            self.logged = true;
-        },
-        logout(logged) {
-            self.logged = false;
-        },
-    }));
+class AuthStore {
 
-export default AuthStore;
+  @observable logged;
+  @observable username;
+  @observable password;
+
+  constructor() {
+    this.logged = false;
+  }
+
+  @action login() {
+    this.logged = true;
+  }
+
+  @action logout() {
+    this.logged = false;
+  }
+
+}
+
+const authStore = new AuthStore();
+
+export default authStore

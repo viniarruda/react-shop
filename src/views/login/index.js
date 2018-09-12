@@ -1,21 +1,35 @@
-import React, { Fragment } from 'react'
+import React, { Component, Fragment } from 'react'
 import {Redirect} from 'react-router-dom'
 import {observer, inject} from 'mobx-react'
 
-const Login = (props) => {
-  const {from} = props.location.state || {from: {pathname: "/home"}};
+import LoginForm from '../../components/login/form'
+import styled from "styled-components"
+import colors from '../../components/common/settings/colors'
 
-  if (props.auth.logged) {
-    return <Redirect to={from}/>;
+const Container = styled.div`
+`;
+
+@inject('auth')
+@observer
+class Login extends Component {
+  constructor(props) {
+    super(props);
   }
+  render() {
+    const { auth } = this.props;
+    const {from} = this.props.location.state || {from: {pathname: "/home"}};
 
-  return (
-    <Fragment>
-      <h2>You need to be logged to see the route: {from.pathname}</h2>
-      <h1>LOGIN</h1>
-      <button onClick={() => props.auth.login()}>Entrar</button>
-    </Fragment>
-  )
+    if (auth.logged) {
+      return <Redirect to={from}/>;
+    }
+
+    return (
+      <Container>
+        <h2>You need to be logged to see the route: {from.pathname}</h2>
+        <LoginForm auth={auth}/>
+      </Container>
+    )
+  }
 };
 
-export default inject("auth")(observer(Login));
+export default Login;
