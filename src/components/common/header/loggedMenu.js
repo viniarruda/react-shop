@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import colors from '../settings/colors'
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Cart from '@material-ui/icons/ShoppingCart'
 import Menu from "@material-ui/core/Menu/Menu";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import {inject, observer} from "mobx-react";
@@ -12,7 +13,7 @@ const ItemLink = styled(Link)`
   text-decoration: none;
 `;
 
-@inject('auth')
+@inject('auth', 'cart')
 @observer
 class LoggedMenu extends Component {
   state = {
@@ -34,9 +35,13 @@ class LoggedMenu extends Component {
   }
   render() {
     const { anchorEl } = this.state;
+    const { cart } = this.props
     const open = Boolean(anchorEl);
     return (
       <Fragment>
+        <IconButton onClick={() => cart.openMenu()}>
+          <Cart/>
+        </IconButton>
         <IconButton
           aria-owns={open ? 'menu-appbar' : null}
           aria-haspopup="true"

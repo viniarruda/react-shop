@@ -32,6 +32,7 @@ import { toJS, values } from 'mobx';
 
 class ProductStore {
   @observable products = [];
+  @observable product = {};
 
   async fetchData() {
     let { data } = await axios.get(
@@ -41,11 +42,20 @@ class ProductStore {
     this.setData(data);
   }
 
+  async getProduct(id) {
+    let { data } = await axios.get(`${api.url}/items/${id}?format=json&apiKey=${api.key}`);
+
+    this.setProduct(data);
+  }
+
   @action setData(data) {
     this.products = data;
     console.log('setdata', this.products)
   }
 
+  @action setProduct(data) {
+    this.product = data;
+  }
 }
 
 const productStore = new ProductStore();

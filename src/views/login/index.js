@@ -17,7 +17,7 @@ class Login extends Component {
   }
   render() {
     const { auth } = this.props;
-    const {from} = this.props.location.state || {from: {pathname: "/home"}};
+    const {from} = this.props.location.state || {from: {pathname: "/sales"}};
 
     if (auth.logged) {
       return <Redirect to={from}/>;
@@ -25,7 +25,6 @@ class Login extends Component {
 
     return (
       <Container>
-        <h2>You need to be logged to see the route: {from.pathname}</h2>
         <LoginForm auth={auth}/>
       </Container>
     )

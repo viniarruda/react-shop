@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import CardItem from './card-item'
+import CardItem from '../../../components/sales/product/card-item'
 
 class ProductList extends Component {
   render() {

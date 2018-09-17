@@ -9,6 +9,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import CardLink from './card-link'
+
 const CardProduct = styled(Card)`
   max-width: 345px;
 `;
@@ -18,20 +20,19 @@ const Media = styled(CardMedia)`
 `;
 
 
-const CardList = () => (
+const CardList = (props) => (
   <CardProduct>
     <CardActionArea>
       <Media
-        image="/static/images/cards/contemplative-reptile.jpg"
-        title="Contemplative Reptile"
+        image={props.product.mediumImage}
+        title={props.product.name}
       />
       <CardContent>
         <Typography gutterBottom variant="headline" component="h2">
-          {this.props.product.name}
+          {props.product.name}
         </Typography>
         <Typography component="p">
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-          across all continents except Antarctica
+          {props.product.shortDescription}
         </Typography>
       </CardContent>
     </CardActionArea>
@@ -39,9 +40,9 @@ const CardList = () => (
       <Button size="small" color="primary">
         Share
       </Button>
-      <Button size="small" color="primary">
-        Learn More
-      </Button>
+      <CardLink to={`/product/${props.product.itemId}`}>
+        Ver mais
+      </CardLink>
     </CardActions>
   </CardProduct>
 );
